@@ -1,3 +1,4 @@
+Todos os direitos reservados à https://baasic.com.br
 
 --
 # Tutorial de Instalação e Execução do Frontend
