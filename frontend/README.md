@@ -10,7 +10,7 @@ Todos os direitos reservados à https://baasic.com.br
   
 ## Instalação e configuração do Frontend
 
-No terminal, navegue até o diretório ```zapcom``` (criado anteriormente na instalação do Backend).
+No terminal, navegue até o diretório ```zapcomm``` (criado anteriormente na instalação do Backend).
 No diretório do projeto, navegue até a pasta ```frontend```. 
 
 ### Instalação das dependências
