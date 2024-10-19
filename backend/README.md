@@ -133,7 +133,7 @@ No terminal, ainda na pasta ```backend```, execute o seguinte comando para copia
   
 
 ```bash
-cp  .env.example  .env
+copy .env.example .env
 ```
 
   
