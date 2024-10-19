@@ -30,7 +30,7 @@ Quando você executa esse comando, o NPM (Node Package Manager) baixa todos os p
 No terminal, ainda na pasta ```frontend```, execute o seguinte comando para copiar o arquivo existente ```.env.example``` e colar como ```.env```:
 
 ```bash
-cp  .env.example  .env
+copy .env.example .env
 ```
 
 Em seguida, abra o arquivo .env, você encontrar-se-á uma linha com o seguinte código:
