@@ -70,6 +70,12 @@ const TransferTicketModal = ({ modalOpen, onClose, ticketid }) => {
 				queueId: null,
 				status: "open",
 			});
+
+			// Kanban automation
+			console.log(`/* ---------- Normal handleSaveTicket. {id: ${ticketid}, new_status: "open"} ---------- */`);
+			await api.delete(`/ticket-tags/${ticketid}`);
+      		await api.put(`/ticket-tags/${ticketid}/${7}`);
+
 			setLoading(false);
 			history.push(`/tickets`);
 		} catch (err) {

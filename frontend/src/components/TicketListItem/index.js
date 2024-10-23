@@ -122,6 +122,11 @@ const TicketListItem = ({ ticket }) => {
         status: "open",
         userId: user?.id,
       });
+
+      // Kanban automation
+      console.log(`/* ---------- Normal handleAcepptTicket. {id: ${ticket.id}, new_status: "open"} ---------- */`);
+      await api.delete(`/ticket-tags/${ticket.id}`);
+      await api.put(`/ticket-tags/${ticket.id}/${7}`);
     } catch (err) {
       setLoading(false);
       toastError(err);

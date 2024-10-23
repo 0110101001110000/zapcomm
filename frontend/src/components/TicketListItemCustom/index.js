@@ -233,6 +233,11 @@ const useStyles = makeStyles((theme) => ({
         promptId: null,
         integrationId: null
       });
+      
+      // Kanban automation
+      console.log(`/* ---------- Custom handleCloseTicket. {id: ${ticket.id}, new_status: "closed"} ---------- */`);
+      await api.delete(`/ticket-tags/${ticket.id}`);
+      await api.put(`/ticket-tags/${ticket.id}/${8}`);
     } catch (err) {
       setLoading(false);
       toastError(err);
@@ -251,6 +256,11 @@ const useStyles = makeStyles((theme) => ({
         userId: user?.id,
         queueId: ticket?.queue?.id
       });
+
+      // Kanban automation
+      console.log(`/* ---------- Custom handleReopenTicket. {id: ${ticket.id}, new_status: "open"} ---------- */`);
+      await api.delete(`/ticket-tags/${ticket.id}`);
+      await api.put(`/ticket-tags/${ticket.id}/${7}`);
     } catch (err) {
       setLoading(false);
       toastError(err);
@@ -267,7 +277,12 @@ const useStyles = makeStyles((theme) => ({
             await api.put(`/tickets/${id}`, {
                 status: "open",
                 userId: user?.id,
-            });
+            }); 
+
+            // Kanban automation
+            console.log(`/* ---------- Custom handleAcepptTicket. {id: ${ticket.id}, new_status: "open"} ---------- */`);
+            await api.delete(`/ticket-tags/${ticket.id}`);
+            await api.put(`/ticket-tags/${ticket.id}/${7}`);
             
             let settingIndex;
 

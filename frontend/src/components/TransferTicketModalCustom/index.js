@@ -149,6 +149,11 @@ const TransferTicketModalCustom = ({ modalOpen, onClose, ticketid }) => {
       }
       await api.put(`/tickets/${ticketid}`, data);
 
+      // Kanban automation
+      console.log(`/* ---------- Custom handleSaveTicket. {id: ${ticketid}, new_status: ${data.status}} ---------- */`);
+      await api.delete(`/ticket-tags/${ticketid}`);
+      //await api.put(`/ticket-tags/${ticketid}/${"lane0"}`);
+
       history.push(`/tickets`);
     } catch (err) {
       setLoading(false);
