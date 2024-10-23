@@ -64,6 +64,9 @@ const TicketActionButtonsCustom = ({ ticket }) => {
 				integrationId: status === "closed" ? false : ticket.integrationId
 			});
 
+			// Kanban automation
+			console.log(`/* ---------- Custom handleUpdateTicketStatus. {id: ${ticket.id}, new_status: ${status}} ---------- */`);
+
 			setLoading(false);
 			if (status === "open") {
 				setCurrentTicket({ ...ticket, code: "#open" });

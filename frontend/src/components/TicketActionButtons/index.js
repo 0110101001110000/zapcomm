@@ -49,6 +49,9 @@ const TicketActionButtons = ({ ticket }) => {
 				userId: userId || null,
 			});
 
+			// Kanban automation
+			console.log(`/* ---------- Normal handleUpdateTicketStatus. {id: ${ticket.id}, new_status: ${status}} ---------- */`);
+
 			setLoading(false);
 			if (status === "open") {
 				history.push(`/tickets/${ticket.id}`);
