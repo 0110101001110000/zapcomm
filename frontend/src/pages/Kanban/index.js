@@ -70,6 +70,13 @@ const Kanban = () => {
           teste: true
         }
       });
+      
+      console.log(`/* ---------- Recived tickets status ---------- */`);
+      console.log(JSON.stringify(data.tickets, null, 2));
+      //console.log(data.tickets[0].id);
+      //console.log(data.tickets[0].status);
+      console.log(`/* ---------- Output finish ---------- */`);
+
       setTickets(data.tickets);
     } catch (err) {
       console.log(err);
@@ -80,42 +87,44 @@ const Kanban = () => {
 
   const popularCards = (jsonString) => {
     const filteredTickets = tickets.filter(ticket => ticket.tags.length === 0);
-
+  
     const lanes = [
       {
         id: "lane0",
-        title: i18n.t("Em aberto"),
+        title: i18n.t("To-do"),
         label: "0",
         cards: filteredTickets.map(ticket => ({
           id: ticket.id.toString(),
           label: "Ticket nº " + ticket.id.toString(),
           description: (
-              <div>
-                <p>
-                  {ticket.contact.number}
-                  <br />
-                  {ticket.lastMessage}
-                </p>
-                <button 
-                  className={classes.button} 
-                  onClick={() => {
-                    handleCardClick(ticket.uuid)
-                  }}>
-                    Ver Ticket
-                </button>
-              </div>
-            ),
+            <div>
+              <p>
+                {ticket.contact.number}
+                
+  
+                {ticket.lastMessage}
+              </p>
+              <button
+                className={classes.button}
+                onClick={() => {
+                  handleCardClick(ticket.uuid)
+                }}>
+                  Ver Ticket
+              </button>
+            </div>
+          ),
           title: ticket.contact.name,
           draggable: true,
           href: "/tickets/" + ticket.uuid,
         })),
+        style: { backgroundColor: "#f5b43c", color: "white" },
       },
       ...tags.map(tag => {
         const filteredTickets = tickets.filter(ticket => {
           const tagIds = ticket.tags.map(tag => tag.id);
           return tagIds.includes(tag.id);
         });
-
+  
         return {
           id: tag.id.toString(),
           title: tag.name,
@@ -127,28 +136,28 @@ const Kanban = () => {
               <div>
                 <p>
                   {ticket.contact.number}
-                  <br />
+                  
+  
                   {ticket.lastMessage}
                 </p>
-                <button 
-                  className={classes.button} 
+                <button
+                  className={classes.button}
                   onClick={() => {
-                    
                     handleCardClick(ticket.uuid)
                   }}>
-                    Ver Ticket
+                  Ver Ticket
                 </button>
               </div>
             ),
             title: ticket.contact.name,
             draggable: true,
-            href: "/tickets/" + ticket.uuid,          
+            href: "/tickets/" + ticket.uuid,
           })),
           style: { backgroundColor: tag.color, color: "white" }
         };
       }),
     ];
-
+  
     setFile({ lanes });
   };
 
@@ -168,6 +177,9 @@ const Kanban = () => {
         toast.success('Ticket Tag Removido!');
           await api.put(`/ticket-tags/${targetLaneId}/${sourceLaneId}`);
         toast.success('Ticket Tag Adicionado com Sucesso!');
+
+        console.log(`/* ---------- SourceLaneId(Tag): ${sourceLaneId} ---------- */`)
+        console.log(`/* ---------- TargetLaneId(Ticket): ${targetLaneId} ---------- */`)
 
     } catch (err) {
       console.log(err);
