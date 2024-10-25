@@ -18,6 +18,8 @@ import api from "../../services/api";
 import ButtonWithSpinner from "../ButtonWithSpinner";
 import toastError from "../../errors/toastError";
 
+import automaticCardMove from "../../pages/Kanban/automation";
+
 const filterOptions = createFilterOptions({
 	trim: true,
 });
@@ -70,6 +72,10 @@ const TransferTicketModal = ({ modalOpen, onClose, ticketid }) => {
 				queueId: null,
 				status: "open",
 			});
+
+			// Kanban automation
+			automaticCardMove(7, ticketid);
+
 			setLoading(false);
 			history.push(`/tickets`);
 		} catch (err) {

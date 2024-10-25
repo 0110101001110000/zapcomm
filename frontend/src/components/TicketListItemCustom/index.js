@@ -37,6 +37,8 @@ import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import contrastColor from "../../helpers/contrastColor";
 import ContactTag from "../ContactTag";
 
+import automaticCardMove from "../../pages/Kanban/automation";
+
 const useStyles = makeStyles((theme) => ({
   ticket: {
     position: "relative",
@@ -233,6 +235,9 @@ const useStyles = makeStyles((theme) => ({
         promptId: null,
         integrationId: null
       });
+
+      // Kanban automation
+      automaticCardMove(8, ticket.id);
     } catch (err) {
       setLoading(false);
       toastError(err);
@@ -251,6 +256,9 @@ const useStyles = makeStyles((theme) => ({
         userId: user?.id,
         queueId: ticket?.queue?.id
       });
+
+      // Kanban automation
+      automaticCardMove(7, ticket.id);
     } catch (err) {
       setLoading(false);
       toastError(err);
@@ -268,6 +276,9 @@ const useStyles = makeStyles((theme) => ({
                 status: "open",
                 userId: user?.id,
             });
+
+            // Kanban automation
+            automaticCardMove(7, ticket.id);
             
             let settingIndex;
 

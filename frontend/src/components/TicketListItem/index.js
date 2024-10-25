@@ -23,6 +23,8 @@ import { Tooltip } from "@material-ui/core";
 import { AuthContext } from "../../context/Auth/AuthContext";
 import toastError from "../../errors/toastError";
 
+import automaticCardMove from "../../pages/Kanban/automation";
+
 const useStyles = makeStyles((theme) => ({
   ticket: {
     position: "relative",
@@ -122,6 +124,9 @@ const TicketListItem = ({ ticket }) => {
         status: "open",
         userId: user?.id,
       });
+
+      // Kanban automation
+      automaticCardMove(7, ticket.id);
     } catch (err) {
       setLoading(false);
       toastError(err);

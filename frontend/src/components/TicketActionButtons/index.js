@@ -12,6 +12,8 @@ import ButtonWithSpinner from "../ButtonWithSpinner";
 import toastError from "../../errors/toastError";
 import { AuthContext } from "../../context/Auth/AuthContext";
 
+import automaticCardMove from "../../pages/Kanban/automation";
+
 const useStyles = makeStyles(theme => ({
 	actionButtons: {
 		marginRight: 6,
@@ -48,6 +50,10 @@ const TicketActionButtons = ({ ticket }) => {
 				status: status,
 				userId: userId || null,
 			});
+
+			// Kanban automation
+			const tagId = (status === "open") ? 7 : (status === "closed") ? 8 : null;
+			automaticCardMove(tagId, ticket.id);
 
 			setLoading(false);
 			if (status === "open") {

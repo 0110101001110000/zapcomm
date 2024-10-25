@@ -17,6 +17,8 @@ import UndoRoundedIcon from '@material-ui/icons/UndoRounded';
 import Tooltip from '@material-ui/core/Tooltip';
 import { green } from '@material-ui/core/colors';
 
+import automaticCardMove from "../../pages/Kanban/automation";
+
 
 const useStyles = makeStyles(theme => ({
 	actionButtons: {
@@ -63,6 +65,10 @@ const TicketActionButtonsCustom = ({ ticket }) => {
 				promptId: status === "closed" ? false : ticket.promptId,
 				integrationId: status === "closed" ? false : ticket.integrationId
 			});
+
+			// Kanban automation
+			const tagId = (status === "open") ? 7 : (status === "closed") ? 8 : null;
+			automaticCardMove(tagId, ticket.id);
 
 			setLoading(false);
 			if (status === "open") {
