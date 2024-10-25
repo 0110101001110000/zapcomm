@@ -144,7 +144,137 @@ const Kanban = () => {
             draggable: true,
             href: "/tickets/" + ticket.uuid,          
           })),
-          style: { backgroundColor: tag.color, color: "white" }
+          style: { backgroundColor: tag.color, color: "red" }
+        };
+      }),
+    ];
+    id: "lane1",
+        title: i18n.t("Em andamento"),
+        label: "0",
+        cards: filteredTickets.map(ticket => ({
+          id: ticket.id.toString(),
+          label: "Ticket nº " + ticket.id.toString(),
+          description: (
+              <div>
+                <p>
+                  {ticket.contact.number}
+                  <br />
+                  {ticket.lastMessage}
+                </p>
+                <button 
+                  className={classes.button} 
+                  onClick={() => {
+                    handleCardClick(ticket.uuid)
+                  }}>
+                    Ver Ticket
+                </button>
+              </div>
+            ),
+          title: ticket.contact.name,
+          draggable: true,
+          href: "/tickets/" + ticket.uuid,
+        })),
+      },
+      ...tags.map(tag => {
+        const filteredTickets = tickets.filter(ticket => {
+          const tagIds = ticket.tags.map(tag => tag.id);
+          return tagIds.includes(tag.id);
+        });
+
+        return {
+          id: tag.id.toString(),
+          title: tag.name,
+          label: tag.id.toString(),
+          cards: filteredTickets.map(ticket => ({
+            id: ticket.id.toString(),
+            label: "Ticket nº " + ticket.id.toString(),
+            description: (
+              <div>
+                <p>
+                  {ticket.contact.number}
+                  <br />
+                  {ticket.lastMessage}
+                </p>
+                <button 
+                  className={classes.button} 
+                  onClick={() => {
+                    
+                    handleCardClick(ticket.uuid)
+                  }}>
+                    Ver Ticket
+                </button>
+              </div>
+            ),
+            title: ticket.contact.name,
+            draggable: true,
+            href: "/tickets/" + ticket.uuid,          
+          })),
+          style: { backgroundColor: tag.color, color: "yellow" }
+        };
+      }),
+    ]; 
+    id: "lane2",
+        title: i18n.t("Finalizado"),
+        label: "0",
+        cards: filteredTickets.map(ticket => ({
+          id: ticket.id.toString(),
+          label: "Ticket nº " + ticket.id.toString(),
+          description: (
+              <div>
+                <p>
+                  {ticket.contact.number}
+                  <br />
+                  {ticket.lastMessage}
+                </p>
+                <button 
+                  className={classes.button} 
+                  onClick={() => {
+                    handleCardClick(ticket.uuid)
+                  }}>
+                    Ver Ticket
+                </button>
+              </div>
+            ),
+          title: ticket.contact.name,
+          draggable: true,
+          href: "/tickets/" + ticket.uuid,
+        })),
+      },
+      ...tags.map(tag => {
+        const filteredTickets = tickets.filter(ticket => {
+          const tagIds = ticket.tags.map(tag => tag.id);
+          return tagIds.includes(tag.id);
+        });
+
+        return {
+          id: tag.id.toString(),
+          title: tag.name,
+          label: tag.id.toString(),
+          cards: filteredTickets.map(ticket => ({
+            id: ticket.id.toString(),
+            label: "Ticket nº " + ticket.id.toString(),
+            description: (
+              <div>
+                <p>
+                  {ticket.contact.number}
+                  <br />
+                  {ticket.lastMessage}
+                </p>
+                <button 
+                  className={classes.button} 
+                  onClick={() => {
+                    
+                    handleCardClick(ticket.uuid)
+                  }}>
+                    Ver Ticket
+                </button>
+              </div>
+            ),
+            title: ticket.contact.name,
+            draggable: true,
+            href: "/tickets/" + ticket.uuid,          
+          })),
+          style: { backgroundColor: tag.color, color: "green" }
         };
       }),
     ];
