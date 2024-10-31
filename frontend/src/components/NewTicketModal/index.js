@@ -25,6 +25,8 @@ import Typography from "@material-ui/core/Typography";
 import { toast } from "react-toastify";
 //import ShowTicketOpen from "../ShowTicketOpenModal";
 
+import automaticCardMove from "../../pages/Kanban/automation";
+
 const useStyles = makeStyles((theme) => ({
   online: {
     fontSize: 11,
@@ -159,7 +161,11 @@ const NewTicketModal = ({ modalOpen, onClose, initialContact }) => {
         whatsappId,
         userId: user.id,
         status: "open",
-      });      
+      });
+      
+      // Kanban automation
+			const tagId = 7
+			automaticCardMove(tagId, ticket.id);
 
       onClose(ticket);
     } catch (err) {
