@@ -164,8 +164,8 @@ const NewTicketModal = ({ modalOpen, onClose, initialContact }) => {
       });
       
       // Kanban automation
-			const tagId = 7
-			automaticCardMove(tagId, ticket.id);
+			const talkingTagId = 2;
+			automaticCardMove(talkingTagId, ticket.id);
 
       onClose(ticket);
     } catch (err) {

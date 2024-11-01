@@ -52,7 +52,10 @@ const TicketActionButtons = ({ ticket }) => {
 			});
 
 			// Kanban automation
-			const tagId = (status === "open") ? 7 : (status === "closed") ? 8 : null;
+			const waitingTagId = 1;
+			const talkingTagId = 2;
+			const finishedTagId = 3;
+			const tagId = (status === "open") ? talkingTagId : (status === "closed") ? finishedTagId : waitingTagId;
 			automaticCardMove(tagId, ticket.id);
 
 			setLoading(false);
