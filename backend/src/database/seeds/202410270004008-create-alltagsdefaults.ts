@@ -7,8 +7,8 @@ module.exports = {
       [
         {
           id: 1,
-          name: "Em Aberto",
-          color: "#D3D3D3",
+          name: "Aguardando",
+          color: "#f5b43c99",
           companyId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -16,8 +16,8 @@ module.exports = {
         },
         {
           id: 2,
-          name: "Em Andamento",
-          color: "#008000",
+          name: "Em Conversa",
+          color: "#190bff99",
           companyId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -25,8 +25,8 @@ module.exports = {
         },
         {
           id: 3,
-          name: "Finalizado",
-          color: "#FF0000",
+          name: "Finalizados",
+          color: "#00b97399",
           companyId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
