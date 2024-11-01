@@ -5,7 +5,7 @@ module.exports = {
     return queryInterface.bulkInsert(
       "Tags",
       [
-        {
+        /* {
           id: 1,
           name: "Aguardando",
           color: "#f5b43c99",
@@ -25,6 +25,24 @@ module.exports = {
         },
         {
           id: 3,
+          name: "Finalizados",
+          color: "#00b97399",
+          companyId: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          kanban: 1
+        } */
+        {
+          id: 1,
+          name: "Em Conversa",
+          color: "#190bff99",
+          companyId: 1,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          kanban: 1
+        },
+        {
+          id: 2,
           name: "Finalizados",
           color: "#00b97399",
           companyId: 1,
