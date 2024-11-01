@@ -74,7 +74,7 @@ const TransferTicketModal = ({ modalOpen, onClose, ticketid }) => {
 			});
 
 			// Kanban automation
-			const talkingTagId = 2;
+			const talkingTagId = 1;
 			automaticCardMove(talkingTagId, ticketid);
 
 			setLoading(false);

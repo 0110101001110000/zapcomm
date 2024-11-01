@@ -126,7 +126,7 @@ const TicketListItem = ({ ticket }) => {
       });
 
       // Kanban automation
-			const talkingTagId = 2;
+			const talkingTagId = 1;
       automaticCardMove(talkingTagId, ticket.id);
     } catch (err) {
       setLoading(false);

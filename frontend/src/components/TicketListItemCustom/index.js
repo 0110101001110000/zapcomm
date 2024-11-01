@@ -237,7 +237,7 @@ const useStyles = makeStyles((theme) => ({
       });
 
       // Kanban automation
-			const finishedTagId = 3;
+			const finishedTagId = 2;
       automaticCardMove(finishedTagId, ticket.id);
     } catch (err) {
       setLoading(false);
@@ -259,7 +259,7 @@ const useStyles = makeStyles((theme) => ({
       });
 
       // Kanban automation
-			const talkingTagId = 2;
+			const talkingTagId = 1;
       automaticCardMove(talkingTagId, ticket.id);
     } catch (err) {
       setLoading(false);
@@ -280,7 +280,7 @@ const useStyles = makeStyles((theme) => ({
             });
 
             // Kanban automation
-            const talkingTagId = 2;
+            const talkingTagId = 1;
             automaticCardMove(talkingTagId, ticket.id);
             
             let settingIndex;

@@ -152,10 +152,9 @@ const TransferTicketModalCustom = ({ modalOpen, onClose, ticketid }) => {
       await api.put(`/tickets/${ticketid}`, data);
 
       // Kanban automation
-      const waitingTagId = 1;
-			const talkingTagId = 2;
-			const finishedTagId = 3;
-			const tagId = (data.status === "open") ? talkingTagId: (data.status === "closed") ? finishedTagId : waitingTagId;
+			const talkingTagId = 1;
+			const finishedTagId = 2;
+			const tagId = (data.status === "open") ? talkingTagId: (data.status === "closed") ? finishedTagId : null;
 			automaticCardMove(tagId, ticketid);
 
       history.push(`/tickets`);
