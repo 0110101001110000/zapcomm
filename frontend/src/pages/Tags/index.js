@@ -115,15 +115,13 @@ const Tags = () => {
         params: { searchParam, pageNumber },
       });
 
+      // Kanban automation
       if (kanbanAutomation.needsDefaultTags(data.tags)) {
         toast.warn("Tags padrões do Kanban não encontradas!");
         kanbanAutomation.saveNewTag(defaultTags.talkingTag.name, defaultTags.talkingTag.color, defaultTags.talkingTag.kanban, user.companyId);
         kanbanAutomation.saveNewTag(defaultTags.finishedTag.name, defaultTags.finishedTag.color, defaultTags.finishedTag.kanban, user.companyId);
         toast.success("Tags padrões do Kanban criadas com Sucesso!");
       }
-
-      console.log(defaultTags.talkingTag.id);
-      console.log(defaultTags.finishedTag.id);
 
       dispatch({ type: "LOAD_TAGS", payload: data.tags });
       setHasMore(data.hasMore);
