@@ -38,6 +38,9 @@ import { Tooltip } from "@material-ui/core";
 import { SocketContext } from "../../context/Socket/SocketContext";
 import { AuthContext } from "../../context/Auth/AuthContext";
 
+import { defaultTags } from "../Kanban/config";
+import kanbanAutomation from "../Kanban/automation";
+
 const reducer = (state, action) => {
   if (action.type === "LOAD_TAGS") {
     const tags = action.payload;
@@ -111,6 +114,17 @@ const Tags = () => {
       const { data } = await api.get("/tags/", {
         params: { searchParam, pageNumber },
       });
+
+      if (kanbanAutomation.needsDefaultTags(data.tags)) {
+        toast.warn("Tags padrões do Kanban não encontradas!");
+        kanbanAutomation.saveNewTag(defaultTags.talkingTag.name, defaultTags.talkingTag.color, defaultTags.talkingTag.kanban, user.companyId);
+        kanbanAutomation.saveNewTag(defaultTags.finishedTag.name, defaultTags.finishedTag.color, defaultTags.finishedTag.kanban, user.companyId);
+        toast.success("Tags padrões do Kanban criadas com Sucesso!");
+      }
+
+      console.log(defaultTags.talkingTag.id);
+      console.log(defaultTags.finishedTag.id);
+
       dispatch({ type: "LOAD_TAGS", payload: data.tags });
       setHasMore(data.hasMore);
       setLoading(false);
