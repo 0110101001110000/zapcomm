@@ -42,13 +42,12 @@ const Kanban = () => {
       const fetchedTags = response.data.lista || [];
       
       // Kanban automation
-      if (kanbanAutomation.needsDefaultTags(response.data.lista)) {
+      if (await kanbanAutomation.needsDefaultTags()) {
         toast.warn("Tags padrões do Kanban não encontradas!");
         kanbanAutomation.saveNewTag(defaultTags.talkingTag.name, defaultTags.talkingTag.color, defaultTags.talkingTag.kanban, user.companyId);
         kanbanAutomation.saveNewTag(defaultTags.finishedTag.name, defaultTags.finishedTag.color, defaultTags.finishedTag.kanban, user.companyId);
         toast.success("Tags padrões do Kanban criadas com Sucesso!");
       }
-
 
       setTags(fetchedTags);
 

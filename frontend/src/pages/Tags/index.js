@@ -116,7 +116,7 @@ const Tags = () => {
       });
 
       // Kanban automation
-      if (kanbanAutomation.needsDefaultTags(data.tags)) {
+      if (await kanbanAutomation.needsDefaultTags()) {
         toast.warn("Tags padrões do Kanban não encontradas!");
         kanbanAutomation.saveNewTag(defaultTags.talkingTag.name, defaultTags.talkingTag.color, defaultTags.talkingTag.kanban, user.companyId);
         kanbanAutomation.saveNewTag(defaultTags.finishedTag.name, defaultTags.finishedTag.color, defaultTags.finishedTag.kanban, user.companyId);
