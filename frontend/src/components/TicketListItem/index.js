@@ -23,7 +23,8 @@ import { Tooltip } from "@material-ui/core";
 import { AuthContext } from "../../context/Auth/AuthContext";
 import toastError from "../../errors/toastError";
 
-import automaticCardMove from "../../pages/Kanban/automation";
+import { defaultTags } from "../../pages/Kanban/config";
+import kanbanAutomation from "../../pages/Kanban/automation";
 
 const useStyles = makeStyles((theme) => ({
   ticket: {
@@ -126,8 +127,8 @@ const TicketListItem = ({ ticket }) => {
       });
 
       // Kanban automation
-			const talkingTagId = 1;
-      automaticCardMove(talkingTagId, ticket.id);
+      const talkingTagId = await kanbanAutomation.getTagId(defaultTags.talkingTag.name, defaultTags.talkingTag.color);
+			kanbanAutomation.automaticCardMove(talkingTagId, ticket.id);
     } catch (err) {
       setLoading(false);
       toastError(err);

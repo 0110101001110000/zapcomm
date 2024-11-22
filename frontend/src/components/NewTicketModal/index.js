@@ -25,7 +25,8 @@ import Typography from "@material-ui/core/Typography";
 import { toast } from "react-toastify";
 //import ShowTicketOpen from "../ShowTicketOpenModal";
 
-import automaticCardMove from "../../pages/Kanban/automation";
+import { defaultTags } from "../../pages/Kanban/config";
+import kanbanAutomation from "../../pages/Kanban/automation";
 
 const useStyles = makeStyles((theme) => ({
   online: {
@@ -164,8 +165,8 @@ const NewTicketModal = ({ modalOpen, onClose, initialContact }) => {
       });
       
       // Kanban automation
-			const talkingTagId = 1;
-			automaticCardMove(talkingTagId, ticket.id);
+      const talkingTag = await kanbanAutomation.getTagId(defaultTags.talkingTag.name, defaultTags.talkingTag.color);
+      kanbanAutomation.automaticCardMove(talkingTag, ticket.id);
 
       onClose(ticket);
     } catch (err) {
