@@ -69,7 +69,13 @@ class KanbanAutomation {
         await api.delete(`/ticket-tags/${ticketId}`);
         await api.put(`/ticket-tags/${ticketId}/${tagId}`);
       } catch (err) {
-        console.error(err);
+        if (err.response) {
+          console.error(`Erro na resposta ao mover ticket: ${err.response.status} - ${err.response.data}`);
+        } else if (err.request) {
+          console.error("Erro de rede ao mover ticket: a requisição não foi recebida pela API");
+        } else {
+          console.error("Erro desconhecido ao mover ticket:", err.message);
+        }
       }
     }
   }
