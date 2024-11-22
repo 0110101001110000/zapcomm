@@ -37,7 +37,8 @@ import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import contrastColor from "../../helpers/contrastColor";
 import ContactTag from "../ContactTag";
 
-import automaticCardMove from "../../pages/Kanban/automation";
+import { defaultTags } from "../../pages/Kanban/config";
+import kanbanAutomation from "../../pages/Kanban/automation";
 
 const useStyles = makeStyles((theme) => ({
   ticket: {
@@ -237,8 +238,8 @@ const useStyles = makeStyles((theme) => ({
       });
 
       // Kanban automation
-			const finishedTagId = 2;
-      automaticCardMove(finishedTagId, ticket.id);
+      const finishedTagId = await kanbanAutomation.getTagId(defaultTags.finishedTag.name, defaultTags.finishedTag.color);
+			kanbanAutomation.automaticCardMove(finishedTagId, ticket.id);
     } catch (err) {
       setLoading(false);
       toastError(err);
@@ -259,8 +260,8 @@ const useStyles = makeStyles((theme) => ({
       });
 
       // Kanban automation
-			const talkingTagId = 1;
-      automaticCardMove(talkingTagId, ticket.id);
+      const talkingTag = await kanbanAutomation.getTagId(defaultTags.talkingTag.name, defaultTags.talkingTag.color);
+			kanbanAutomation.automaticCardMove(talkingTag, ticket.id);
     } catch (err) {
       setLoading(false);
       toastError(err);
@@ -280,8 +281,8 @@ const useStyles = makeStyles((theme) => ({
             });
 
             // Kanban automation
-            const talkingTagId = 1;
-            automaticCardMove(talkingTagId, ticket.id);
+            const talkingTag = await kanbanAutomation.getTagId(defaultTags.talkingTag.name, defaultTags.talkingTag.color);
+			      kanbanAutomation.automaticCardMove(talkingTag, ticket.id);
             
             let settingIndex;
 

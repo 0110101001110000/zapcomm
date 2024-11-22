@@ -18,7 +18,8 @@ import api from "../../services/api";
 import ButtonWithSpinner from "../ButtonWithSpinner";
 import toastError from "../../errors/toastError";
 
-import automaticCardMove from "../../pages/Kanban/automation";
+import { defaultTags } from "../../pages/Kanban/config";
+import kanbanAutomation from "../../pages/Kanban/automation";
 
 const filterOptions = createFilterOptions({
 	trim: true,
@@ -74,8 +75,8 @@ const TransferTicketModal = ({ modalOpen, onClose, ticketid }) => {
 			});
 
 			// Kanban automation
-			const talkingTagId = 1;
-			automaticCardMove(talkingTagId, ticketid);
+			const talkingTag = await kanbanAutomation.getTagId(defaultTags.talkingTag.name, defaultTags.talkingTag.color);
+			kanbanAutomation.automaticCardMove(talkingTag, ticketid);
 
 			setLoading(false);
 			history.push(`/tickets`);

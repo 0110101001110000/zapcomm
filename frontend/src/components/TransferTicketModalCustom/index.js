@@ -25,7 +25,8 @@ import toastError from "../../errors/toastError";
 import useQueues from "../../hooks/useQueues";
 import { AuthContext } from "../../context/Auth/AuthContext";
 
-import automaticCardMove from "../../pages/Kanban/automation";
+import { defaultTags } from "../../pages/Kanban/config";
+import kanbanAutomation from "../../pages/Kanban/automation";
 
 const useStyles = makeStyles((theme) => ({
   maxWidth: {
@@ -152,10 +153,10 @@ const TransferTicketModalCustom = ({ modalOpen, onClose, ticketid }) => {
       await api.put(`/tickets/${ticketid}`, data);
 
       // Kanban automation
-			const talkingTagId = 1;
-			const finishedTagId = 2;
+      const talkingTagId = await kanbanAutomation.getTagId(defaultTags.talkingTag.name, defaultTags.talkingTag.color);
+			const finishedTagId = await kanbanAutomation.getTagId(defaultTags.finishedTag.name, defaultTags.finishedTag.color);
 			const tagId = (data.status === "open") ? talkingTagId: (data.status === "closed") ? finishedTagId : null;
-			automaticCardMove(tagId, ticketid);
+			kanbanAutomation.automaticCardMove(tagId, ticketid);
 
       history.push(`/tickets`);
     } catch (err) {
