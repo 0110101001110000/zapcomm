@@ -22,9 +22,9 @@ class KanbanAutomation {
         if (err.response) {
           console.error(`Erro na resposta da API: ${err.response.status} - ${err.response.data}`);
         } else if (err.request) {
-          console.error('Erro de rede: a requisição não foi recebida pela API');
+          console.error("Erro de rede: a requisição não foi recebida pela API");
         } else {
-          console.error('Erro desconhecido:', err.message);
+          console.error("Erro desconhecido:", err.message);
         }
 
         return null;
@@ -42,7 +42,7 @@ class KanbanAutomation {
           return true;
         }
       } catch (err) {
-        console.error('Erro ao verificar as tags padrão:', err);
+        console.error("Erro ao verificar as tags padrão:", err);
 
         return true;
       }
@@ -54,7 +54,13 @@ class KanbanAutomation {
         await api.post("/tags", tagData);
       } 
       catch (err) {
-        console.error(err);
+        if (err.response) {
+          console.error(`Erro na resposta ao salvar tag: ${err.response.status} - ${err.response.data}`);
+        } else if (err.request) {
+          console.error("Erro de rede ao salvar tag: a requisição não foi recebida pela API");
+        } else {
+          console.error("Erro desconhecido ao salvar tag:", err.message);
+        }
       }
     }
 
