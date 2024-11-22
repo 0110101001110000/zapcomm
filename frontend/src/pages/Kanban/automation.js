@@ -42,7 +42,8 @@ class KanbanAutomation {
           return true;
         }
       } catch (err) {
-        console.log(err);
+        console.error('Erro ao verificar as tags padrão:', err);
+
         return true;
       }
     }
@@ -53,7 +54,7 @@ class KanbanAutomation {
         await api.post("/tags", tagData);
       } 
       catch (err) {
-        console.log(err);
+        console.error(err);
       }
     }
 
@@ -62,7 +63,7 @@ class KanbanAutomation {
         await api.delete(`/ticket-tags/${ticketId}`);
         await api.put(`/ticket-tags/${ticketId}/${tagId}`);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     }
   }
