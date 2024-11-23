@@ -36,13 +36,9 @@ class KanbanAutomation {
         const talkingTagId = await this.getTagId(defaultTags.talkingTag.name, defaultTags.talkingTag.color);
         const finishedTagId = await this.getTagId(defaultTags.finishedTag.name, defaultTags.finishedTag.color);
         
-        if (talkingTagId && finishedTagId) {
-          return false;
-        } else {
-          return true;
-        }
+        return !(talkingTagId && finishedTagId);
       } catch (err) {
-        console.error("Erro ao verificar as tags padrão:", err);
+        console.error("Erro ao verificar a existência das tags padrão:", err);
 
         return true;
       }
