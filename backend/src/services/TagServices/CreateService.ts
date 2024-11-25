@@ -21,7 +21,11 @@ const CreateService = async ({
     name: Yup.string()
       .required("O nome da tag é obrigatório")
       .min(3, "O nome da tag deve ter pelo menos 3 caracteres"),
+    /* color: Yup.string()
+      .optional()
+      .matches(/^#([0-9A-F]{3}|[0-9A-F]{6})$/i, "A cor deve estar no formato hexadecimal (ex: #A4CCCC ou #FFF)"), */
     kanban: Yup.number()
+      .optional()
       .integer("O valor de kanban deve ser um número inteiro")
       .oneOf([0, 1], "O valor de kanban deve ser 0 ou 1"),
     companyId: Yup.number()
@@ -31,10 +35,10 @@ const CreateService = async ({
   });
 
   try {
-    await schema.validate({ name, color, kanban, companyId }, { abortEarly: false });
+    await schema.validate({ name, kanban, companyId }, { abortEarly: false });
     
     const [tag] = await Tag.findOrCreate({
-      where: { name, color, companyId, kanban },
+      where: { name, companyId, kanban },
       defaults: { name, color, companyId, kanban }
     });
   
