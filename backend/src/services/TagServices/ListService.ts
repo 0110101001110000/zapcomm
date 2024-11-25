@@ -32,11 +32,10 @@ const ListService = async ({
     searchParam: Yup.string()
       .optional()
       .max(255, "O parâmetro de busca deve ter no máximo 255 caracteres"),
-    pageNumber: Yup.mixed()
-      .test("is-valid-page", 
-        "O número da página deve ser um inteiro positivo", 
-        (value) => !value || (Number.isInteger(+value) && +value > 0)
-      )
+    pageNumber: Yup.number()
+      .optional()
+      .positive("O número da página deve ser um valor positivo")
+      .integer("O número da página deve ser um valor inteiro")
   });
 
   try {  
