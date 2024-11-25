@@ -3,6 +3,10 @@ import Tag from "../../models/Tag";
 import Ticket from "../../models/Ticket";
 import TicketTag from "../../models/TicketTag";
 
+import * as Yup from "yup";
+import { logger } from "../../utils/logger";
+import AppError from "../../errors/AppError";
+
 interface Request {
   companyId: number;
 }
@@ -10,15 +14,37 @@ interface Request {
 const KanbanListService = async ({
   companyId
 }: Request): Promise<Tag[]> => {
-  const tags = await Tag.findAll({
-    where: {
-      kanban: 1,
-      companyId: companyId,
-    },
-    order: [["id", "ASC"]],
-    raw: true,
+  const schema = Yup.object().shape({
+    companyId: Yup.number()
+      .required("O ID da empresa é obrigatório")
+      .positive("O ID da empresa deve ser um número positivo")
+      .integer("O ID da empresa deve ser um número inteiro")
   });
-  return tags;
+
+  try {
+    await schema.validate({ companyId }, { abortEarly: false });
+  
+    const tags = await Tag.findAll({
+      where: {
+        kanban: 1,
+        companyId: companyId,
+      },
+      order: [["id", "ASC"]],
+      raw: true,
+    });
+
+    logger.info(`Tags kanban listadas com sucesso para a empresa ID ${companyId}`)
+    
+    return tags;
+  } catch(err) {
+    if (err instanceof Yup.ValidationError) {
+      logger.warn(`Erro de validação: ${err.errors.join(", ")}`);
+      throw new AppError(`Erro de validação: ${err.errors.join(", ")}`, 400);
+    } 
+
+    logger.error(`Erro inesperado ao listar tags kanban: ${err.message}`);
+    throw new AppError("Erro interno ao listar tags kanban", 500);
+  }
 };
 
 export default KanbanListService;
