@@ -50,11 +50,9 @@ const ListService = async ({
     return tags;
   } catch (err) {
     if (err instanceof Yup.ValidationError) {
-      logger.warn(`Erro de validação: ${err.errors.join(", ")}`);
       throw new AppError(`Erro de validação: ${err.errors.join(", ")}`, 400);
     }
 
-    logger.error(`Erro inesperado ao listar tags: ${err.message}`);
     throw new AppError(`Erro interno ao listar tags`, 500);
   }
 };

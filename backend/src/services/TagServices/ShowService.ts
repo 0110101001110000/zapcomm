@@ -25,7 +25,6 @@ const TagService = async (id: string | number): Promise<Tag> => {
     return tag;
   } catch(err) {
     if (err instanceof Yup.ValidationError) {
-      logger.warn(`Erro de validação: ${err.errors.join(", ")}`);
       throw new AppError(`Erro de validação: ${err.errors.join(", ")}`, 400);
     }
 
