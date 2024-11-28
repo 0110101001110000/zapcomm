@@ -45,6 +45,8 @@ const Kanban = () => {
       if (await kanbanAutomation.needsDefaultTags()) {
         toast.warn("Tags padrões do Kanban não encontradas!");
         kanbanAutomation.saveNewTag(defaultTags.talkingTag.name, defaultTags.talkingTag.color, defaultTags.talkingTag.kanban, user.companyId);
+        kanbanAutomation.saveNewTag(defaultTags.waitingSupplierTag.name, defaultTags.waitingSupplierTag.color, defaultTags.waitingSupplierTag.kanban, user.companyId);
+        kanbanAutomation.saveNewTag(defaultTags.preventedTag.name, defaultTags.preventedTag.color, defaultTags.preventedTag.kanban, user.companyId);
         kanbanAutomation.saveNewTag(defaultTags.finishedTag.name, defaultTags.finishedTag.color, defaultTags.finishedTag.kanban, user.companyId);
         toast.success("Tags padrões do Kanban criadas com Sucesso!");
       }
