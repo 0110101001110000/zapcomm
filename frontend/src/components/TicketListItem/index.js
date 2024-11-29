@@ -23,7 +23,6 @@ import { Tooltip } from "@material-ui/core";
 import { AuthContext } from "../../context/Auth/AuthContext";
 import toastError from "../../errors/toastError";
 
-import { defaultTags } from "../../pages/Kanban/config";
 import kanbanAutomation from "../../pages/Kanban/automation";
 
 const useStyles = makeStyles((theme) => ({
@@ -121,14 +120,14 @@ const TicketListItem = ({ ticket }) => {
   const handleAcepptTicket = async (ticket) => {
     setLoading(true);
     try {
+      const status = "open";
       await api.put(`/tickets/${ticket.id}`, {
-        status: "open",
+        status: status,
         userId: user?.id,
       });
 
       // Kanban automation
-      const talkingTagId = await kanbanAutomation.getTagId(defaultTags.talkingTag.name, defaultTags.talkingTag.color);
-			kanbanAutomation.automaticCardMove(talkingTagId, ticket.id);
+			kanbanAutomation.automaticCardMove(ticket.id, status);
     } catch (err) {
       setLoading(false);
       toastError(err);

@@ -12,7 +12,6 @@ import ButtonWithSpinner from "../ButtonWithSpinner";
 import toastError from "../../errors/toastError";
 import { AuthContext } from "../../context/Auth/AuthContext";
 
-import { defaultTags } from "../../pages/Kanban/config";
 import kanbanAutomation from "../../pages/Kanban/automation";
 
 const useStyles = makeStyles(theme => ({
@@ -53,10 +52,7 @@ const TicketActionButtons = ({ ticket }) => {
 			});
 
 			// Kanban automation
-			const talkingTagId = await kanbanAutomation.getTagId(defaultTags.talkingTag.name, defaultTags.talkingTag.color);
-			const finishedTagId = await kanbanAutomation.getTagId(defaultTags.finishedTag.name, defaultTags.finishedTag.color);
-			const tagId = (status === "open") ? talkingTagId : (status === "closed") ? finishedTagId : null;
-			kanbanAutomation.automaticCardMove(tagId, ticket.id);
+			kanbanAutomation.automaticCardMove(ticket.id, status);
 
 			setLoading(false);
 			if (status === "open") {

@@ -37,7 +37,6 @@ import ClearOutlinedIcon from '@material-ui/icons/ClearOutlined';
 import contrastColor from "../../helpers/contrastColor";
 import ContactTag from "../ContactTag";
 
-import { defaultTags } from "../../pages/Kanban/config";
 import kanbanAutomation from "../../pages/Kanban/automation";
 
 const useStyles = makeStyles((theme) => ({
@@ -228,8 +227,9 @@ const useStyles = makeStyles((theme) => ({
     setTag(ticket?.tags);
     setLoading(true);
     try {
+      const status = "closed";
       await api.put(`/tickets/${id}`, {
-        status: "closed",
+        status: status,
         userId: user?.id,
         queueId: ticket?.queue?.id,
         useIntegration: false,
@@ -238,8 +238,7 @@ const useStyles = makeStyles((theme) => ({
       });
 
       // Kanban automation
-      const finishedTagId = await kanbanAutomation.getTagId(defaultTags.finishedTag.name, defaultTags.finishedTag.color);
-			kanbanAutomation.automaticCardMove(finishedTagId, ticket.id);
+			kanbanAutomation.automaticCardMove(ticket.id, status);
     } catch (err) {
       setLoading(false);
       toastError(err);
@@ -253,15 +252,15 @@ const useStyles = makeStyles((theme) => ({
   const handleReopenTicket = async (id) => {
     setLoading(true);
     try {
+      const status = "open";
       await api.put(`/tickets/${id}`, {
-        status: "open",
+        status: status,
         userId: user?.id,
         queueId: ticket?.queue?.id
       });
 
       // Kanban automation
-      const talkingTag = await kanbanAutomation.getTagId(defaultTags.talkingTag.name, defaultTags.talkingTag.color);
-			kanbanAutomation.automaticCardMove(talkingTag, ticket.id);
+			kanbanAutomation.automaticCardMove(ticket.id, status);
     } catch (err) {
       setLoading(false);
       toastError(err);
@@ -275,14 +274,14 @@ const useStyles = makeStyles((theme) => ({
     const handleAcepptTicket = async (id) => {
         setLoading(true);
         try {
+            const status = "open";
             await api.put(`/tickets/${id}`, {
-                status: "open",
+                status: status,
                 userId: user?.id,
             });
 
             // Kanban automation
-            const talkingTag = await kanbanAutomation.getTagId(defaultTags.talkingTag.name, defaultTags.talkingTag.color);
-			      kanbanAutomation.automaticCardMove(talkingTag, ticket.id);
+			      kanbanAutomation.automaticCardMove(ticket.id, status);
             
             let settingIndex;
 

@@ -17,7 +17,6 @@ import UndoRoundedIcon from '@material-ui/icons/UndoRounded';
 import Tooltip from '@material-ui/core/Tooltip';
 import { green } from '@material-ui/core/colors';
 
-import { defaultTags } from "../../pages/Kanban/config";
 import kanbanAutomation from "../../pages/Kanban/automation";
 
 
@@ -68,10 +67,7 @@ const TicketActionButtonsCustom = ({ ticket }) => {
 			});
 
 			// Kanban automation
-			const talkingTagId = await kanbanAutomation.getTagId(defaultTags.talkingTag.name, defaultTags.talkingTag.color);
-			const finishedTagId = await kanbanAutomation.getTagId(defaultTags.finishedTag.name, defaultTags.finishedTag.color);
-			const tagId = (status === "open") ? talkingTagId: (status === "closed") ? finishedTagId : null;
-			kanbanAutomation.automaticCardMove(tagId, ticket.id);
+			kanbanAutomation.automaticCardMove(ticket.id, status);
 
 			setLoading(false);
 			if (status === "open") {

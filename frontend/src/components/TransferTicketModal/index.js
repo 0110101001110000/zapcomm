@@ -18,7 +18,6 @@ import api from "../../services/api";
 import ButtonWithSpinner from "../ButtonWithSpinner";
 import toastError from "../../errors/toastError";
 
-import { defaultTags } from "../../pages/Kanban/config";
 import kanbanAutomation from "../../pages/Kanban/automation";
 
 const filterOptions = createFilterOptions({
@@ -68,15 +67,15 @@ const TransferTicketModal = ({ modalOpen, onClose, ticketid }) => {
 		if (!ticketid || !selectedUser) return;
 		setLoading(true);
 		try {
+			const status = "open";
 			await api.put(`/tickets/${ticketid}`, {
 				userId: selectedUser.id,
 				queueId: null,
-				status: "open",
+				status: status,
 			});
 
 			// Kanban automation
-			const talkingTag = await kanbanAutomation.getTagId(defaultTags.talkingTag.name, defaultTags.talkingTag.color);
-			kanbanAutomation.automaticCardMove(talkingTag, ticketid);
+			kanbanAutomation.automaticCardMove(ticketid, status);
 
 			setLoading(false);
 			history.push(`/tickets`);

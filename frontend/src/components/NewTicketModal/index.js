@@ -25,7 +25,6 @@ import Typography from "@material-ui/core/Typography";
 import { toast } from "react-toastify";
 //import ShowTicketOpen from "../ShowTicketOpenModal";
 
-import { defaultTags } from "../../pages/Kanban/config";
 import kanbanAutomation from "../../pages/Kanban/automation";
 
 const useStyles = makeStyles((theme) => ({
@@ -156,17 +155,17 @@ const NewTicketModal = ({ modalOpen, onClose, initialContact }) => {
     try {
       const queueId = selectedQueue !== "" ? selectedQueue : null;
       const whatsappId = selectedWhatsapp !== "" ? selectedWhatsapp : null;
+      const status = "open";
       const { data: ticket } = await api.post("/tickets", {
         contactId: contactId,
         queueId,
         whatsappId,
         userId: user.id,
-        status: "open",
+        status: status,
       });
       
       // Kanban automation
-      const talkingTag = await kanbanAutomation.getTagId(defaultTags.talkingTag.name, defaultTags.talkingTag.color);
-      kanbanAutomation.automaticCardMove(talkingTag, ticket.id);
+      kanbanAutomation.automaticCardMove(ticket.id, status);
 
       onClose(ticket);
     } catch (err) {
