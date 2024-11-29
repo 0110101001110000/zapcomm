@@ -32,7 +32,7 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
     if (error instanceof Yup.ValidationError) {
       throw new AppError(`Erro de validação: ${error.errors.join(", ")}`, 400);
     }
-    
+
     throw new AppError("Erro interno ao armazenar ticket tag", 500);
   }
 };
@@ -54,8 +54,16 @@ export const remove = async (req: Request, res: Response): Promise<Response> => 
 export const remove = async (req: Request, res: Response): Promise<Response> => {
   const { ticketId } = req.params;
 
+  const schema = Yup.object().shape({
+    ticketId: Yup.number()
+      .required("O ID do ticket é obrigatório")
+      .positive("O ID do ticket deve ser um número positivo")
+      .integer("O ID do ticket deve ser um número inteiro")
+  });
 
   try {
+    await schema.validate({ ticketId }, { abortEarly: false });
+
     // Retrieve tagIds associated with the provided ticketId from TicketTags
     const ticketTags = await TicketTag.findAll({ where: { ticketId } });
     const tagIds = ticketTags.map((ticketTag) => ticketTag.tagId);
@@ -72,9 +80,15 @@ export const remove = async (req: Request, res: Response): Promise<Response> => 
     const tagIdsWithKanbanOne = tagsWithKanbanOne.map((tag) => tag.id);
     if (tagIdsWithKanbanOne)
     await TicketTag.destroy({ where: { ticketId, tagId: tagIdsWithKanbanOne } });
+    
+    logger.info(`Ticket Tags removido com sucesso: ticket ID ${ticketId}`);    
 
     return res.status(200).json({ message: 'Ticket tags removed successfully.' });
   } catch (error) {
-    return res.status(500).json({ error: 'Failed to remove ticket tags.' });
+    if (error instanceof Yup.ValidationError) {
+      throw new AppError(`Erro de validação: ${error.errors.join(", ")}`, 400);
+    }
+
+    throw new AppError("Erro interno ao remover ticket tags", 500);
   }
 };
