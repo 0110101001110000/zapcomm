@@ -24,8 +24,21 @@ class KanbanAutomation {
     }
   }
 
-  async automaticCardMove(tagId, ticketId) {
+  async automaticCardMove(ticketId, status) {
     try {
+      let tagId = null;
+
+      for (const tagKey in defaultTags) {
+        const tag = defaultTags[tagKey];
+        const name = tag.name;
+        const color = tag.color;
+        const matchingStatus = tag.matchingStatus;
+        if (matchingStatus === status) {
+          tagId = await this.getTagId(name, color);
+          break;
+        }
+      }
+
       await api.delete(`/ticket-tags/${ticketId}`);
       await api.put(`/ticket-tags/${ticketId}/${tagId}`);
     } catch (err) {
