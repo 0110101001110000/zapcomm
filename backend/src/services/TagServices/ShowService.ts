@@ -28,6 +28,10 @@ const TagService = async (id: string | number): Promise<Tag> => {
       throw new AppError(`Erro de validação: ${err.errors.join(", ")}`, 400);
     }
 
+    if (err instanceof AppError) {
+      throw err;
+    }
+
     logger.error(`Erro inesperado ao buscar tag com ID ${id}: ${err.message}`);
     throw new AppError("Erro interno ao buscar tag", 500);
   }
