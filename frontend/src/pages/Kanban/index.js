@@ -42,6 +42,9 @@ const Kanban = () => {
       const fetchedTags = response.data.lista || [];
       
       // Kanban automation
+      console.info("/* -------------------------------------------------------------- */");
+      kanbanAutomation.createDefaultTags(user.companyId);
+      console.info("/* -------------------------------------------------------------- */");
       if (await kanbanAutomation.needsDefaultTags()) {
         toast.warn("Tags padrões do Kanban não encontradas!");
         kanbanAutomation.saveNewTag(defaultTags.talkingTag.name, defaultTags.talkingTag.color, defaultTags.talkingTag.kanban, user.companyId);
@@ -122,7 +125,7 @@ const Kanban = () => {
           draggable: true,
           href: "/tickets/" + ticket.uuid,
         })),
-        style: { backgroundColor: "#f5b43c99", color: "white" }
+        style: { backgroundColor: "#d6d6d6", color: "white" }
       },
       ...tags.map(tag => {
         const filteredTickets = tickets.filter(ticket => {
